@@ -1,0 +1,20 @@
+from bjt import BiasInput, solve_stiff_divider, solve_thevenin, cross_check, fmt_current, fmt_voltage
+
+x = BiasInput(vcc=12, r1=100000, r2=22000, rc=2200, re=1000, beta=100, vbe=0.7)
+s = solve_stiff_divider(x)
+t = solve_thevenin(x)
+d = cross_check(s, t)
+
+print("=== Stiff Divider (matches screenshot) ===")
+print(f"Region : {s.region.upper()}")
+print(f"VB     : {s.vb:.2f} V")
+print(f"VE     : {s.ve:.2f} V")
+print(f"VC     : {s.vc:.2f} V")
+print(f"VCE    : {s.vce:.2f} V")
+print(f"IB     : {s.ib*1e6:.2f} uA")
+print(f"IC     : {s.ic*1e3:.2f} mA")
+print(f"IE     : {s.ie*1e3:.2f} mA")
+print()
+print("=== Exact Thevenin (cross-check) ===")
+print(f"VCE    : {t.vce:.2f} V")
+print(f"max d  : {max(d.values()):.2e}")
