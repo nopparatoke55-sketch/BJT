@@ -10,6 +10,7 @@ from bjt import (
     validate,
     solve_thevenin,
     solve_nodal,
+    solve_stiff_divider,
     cross_check,
     fmt_current,
     fmt_voltage,
@@ -17,7 +18,7 @@ from bjt import (
 
 app = Flask(__name__)
 
-# Default values shown on page load (values in ohms, matching the reference screenshot)
+# Default values matching the reference screenshot (in ohms)
 DEFAULTS = {
     "vcc": "12",
     "r1": "100000",
@@ -58,25 +59,25 @@ def calculate():
             values={key: form.get(key, "") for key in DEFAULTS},
         )
 
-    # Compute using both independent methods
+    # Compute using stiff divider (primary, matches lab hand calculation)
+    # and exact Thevenin (independent cross-check)
+    stiff_result = solve_stiff_divider(bias)
     thevenin_result = solve_thevenin(bias)
-    nodal_result = solve_nodal(bias)
-    delta = cross_check(thevenin_result, nodal_result)
+    delta = cross_check(stiff_result, thevenin_result)
 
-    # Build display-ready result dict
+    # Build display-ready result dict from stiff divider (matches screenshot)
     result = {
-        "region": thevenin_result.region.upper(),
-        "ib_fmt": fmt_current(thevenin_result.ib),
-        "ic_fmt": fmt_current(thevenin_result.ic),
-        "ie_fmt": fmt_current(thevenin_result.ie),
-        "vb_fmt": fmt_voltage(thevenin_result.vb),
-        "vc_fmt": fmt_voltage(thevenin_result.vc),
-        "ve_fmt": fmt_voltage(thevenin_result.ve),
-        "vce_fmt": fmt_voltage(thevenin_result.vce),
+        "region": stiff_result.region.upper(),
+        "ib_fmt": fmt_current(stiff_result.ib),
+        "ic_fmt": fmt_current(stiff_result.ic),
+        "ie_fmt": fmt_current(stiff_result.ie),
+        "vb_fmt": fmt_voltage(stiff_result.vb),
+        "vc_fmt": fmt_voltage(stiff_result.vc),
+        "ve_fmt": fmt_voltage(stiff_result.ve),
+        "vce_fmt": fmt_voltage(stiff_result.vce),
         "delta_ic": fmt_current(delta["ic"]),
         "ok": max(delta.values()) < 1e-9,
-        "thevenin": thevenin_result,
-        "nodal": nodal_result,
+        "warning": stiff_result.warning,
     }
 
     # Re-use the form values that were submitted

@@ -269,6 +269,60 @@ def solve_nodal(x: BiasInput) -> BiasResult:
     )
 
 
+def solve_stiff_divider(x: BiasInput) -> BiasResult:
+    """Stiff divider approximation (approximate analysis).
+
+    Assumes base current is negligible compared to divider current, so:
+      VBB = VCC * R2 / (R1 + R2)   (ignoring IB loading)
+      VE  = VBB - VBE
+      IE  = VE / RE
+      IC  = beta * IB,  IB = IE / (1 + beta)
+      VC  = VCC - IC * RC
+      VCE = VC - VE
+
+    This matches the standard textbook “approximate analysis” used in ENG29 labs.
+    """
+    vcc, r1, r2, rc, re, beta, vbe = x.vcc, x.r1, x.r2, x.rc, x.re, x.beta, x.vbe
+
+    vbb = vcc * r2 / (r1 + r2)
+    rb = r1 * r2 / (r1 + r2)
+
+    # Approximate: IB negligible through divider
+    ve = vbb - vbe
+    ie = ve / re
+    ic = beta / (1.0 + beta) * ie   # IC = beta * IB, IB = IE/(1+beta)
+    ib = ie / (1.0 + beta)
+
+    vb = vbe + ie * re
+    vc = vcc - ic * rc
+    vce = vc - ve
+
+    # Region classification (same rules)
+    if vbb <= vbe:
+        region = "cutoff"
+        warning = "Transistor is in cutoff (VBB ≤ VBE); no collector current flows."
+    elif vce < 0.3:
+        region = "saturation"
+        warning = "Transistor is in saturation (VCE < 0.3 V); the linear model no longer applies."
+    else:
+        region = "active"
+        warning = None
+
+    return BiasResult(
+        vbb=vbb,
+        rb=rb,
+        ib=ib,
+        ic=ic,
+        ie=ie,
+        vb=vb,
+        vc=vc,
+        ve=ve,
+        vce=vce,
+        region=region,
+        warning=warning,
+    )
+
+
 def cross_check(a: BiasResult, b: BiasResult) -> dict[str, float]:
     """Return per‑quantity absolute differences between two results."""
     return {
