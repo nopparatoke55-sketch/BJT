@@ -1,0 +1,70 @@
+<svg width="400" height="360" viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- Card background -->
+  <rect width="100%" height="100%" fill="#ffffff" stroke="#dee2e6" stroke-width="1" rx="8" ry="8"/>
+
+  <!-- VCC rail -->
+  <line x1="190" y1="30" x2="250" y2="30" stroke="#333" stroke-width="2"/>
+  <text x="256" y="26" font-size="13" fill="#0d6efd" font-family="Arial, sans-serif">V<sub>CC</sub> = 12 V</text>
+
+  <!-- R1 (Upper Divider) -->
+  <line x1="170" y1="80" x2="170" y2="130" stroke="#333" stroke-width="2"/>
+  <line x1="150" y1="130" x2="190" y2="130" stroke="#333" stroke-width="2"/>
+  <line x1="170" y1="130" x2="170" y2="180" stroke="#333" stroke-width="2"/>
+  <text x="118" y="122" font-size="12" fill="#495057" text-anchor="end">R<sub>1</sub></text>
+  <text x="100" y="152" font-size="11" fill="#6c757d" text-anchor="end">100 kΩ</text>
+
+  <!-- R2 (Lower Divider) -->
+  <line x1="170" y1="180" x2="170" y2="230" stroke="#333" stroke-width="2"/>
+  <line x1="150" y1="230" x2="190" y2="230" stroke="#333" stroke-width="2"/>
+  <line x1="170" y1="230" x2="170" y2="280" stroke="#333" stroke-width="2"/>
+  <text x="118" y="222" font-size="12" fill="#495057" text-anchor="end">R<sub>2</sub></text>
+  <text x="100" y="252" font-size="11" fill="#6c757d" text-anchor="end">22 kΩ</text>
+
+  <!-- Ground (left side) -->
+  <line x1="170" y1="280" x2="170" y2="290" stroke="#333" stroke-width="2"/>
+  <line x1="155" y1="285" x2="185" y2="285" stroke="#333" stroke-width="2"/>
+  <line x1="165" y1="290" x2="175" y2="290" stroke="#333" stroke-width="2"/>
+
+  <!-- Base node -->
+  <circle cx="170" cy="180" r="4" fill="#333"/>
+
+  <!-- Transistor Q1 body -->
+  <circle cx="250" cy="180" r="20" stroke="#333" stroke-width="2" fill="#fff"/>
+
+  <!-- Emitter leg down -->
+  <line x1="250" y1="160" x2="250" y2="200" stroke="#333" stroke-width="2"/>
+
+  <!-- Collector leg up -->
+  <line x1="250" y1="200" x2="250" y2="240" stroke="#333" stroke-width="2"/>
+
+  <!-- Base leg left -->
+  <line x1="230" y1="180" x2="250" y2="180" stroke="#333" stroke-width="2"/>
+
+  <!-- Q1 labels -->
+  <text x="266" y="184" font-size="12" fill="#0d6efd" font-family="Arial, sans-serif">Q1</text>
+  <text x="266" y="198" font-size="10" fill="#6c757d" font-family="Arial, sans-serif">NPN</text>
+  <text x="266" y="211" font-size="10" fill="#6c757d" font-family="Arial, sans-serif">(β = 100)</text>
+
+  <!-- RC (Collector Resistor) -->
+  <line x1="250" y1="30" x2="250" y2="80" stroke="#333" stroke-width="2"/>
+  <line x1="230" y1="80" x2="270" y2="80" stroke="#333" stroke-width="2"/>
+  <line x1="250" y1="80" x2="250" y2="130" stroke="#333" stroke-width="2"/>
+  <text x="276" y="72" font-size="12" fill="#495057">R<sub>C</sub></text>
+  <text x="276" y="97" font-size="11" fill="#6c757d">2.2 kΩ</text>
+
+  <!-- RE (Emitter Resistor) -->
+  <line x1="250" y1="240" x2="250" y2="290" stroke="#333" stroke-width="2"/>
+  <line x1="230" y1="290" x2="270" y2="290" stroke="#333" stroke-width="2"/>
+  <line x1="250" y1="290" x2="250" y2="340" stroke="#333" stroke-width="2"/>
+  <text x="276" y="282" font-size="12" fill="#495057">R<sub>E</sub></text>
+  <text x="276" y="307" font-size="11" fill="#6c757d">1.0 kΩ</text>
+
+  <!-- Ground (right side) -->
+  <line x1="250" y1="340" x2="250" y2="350" stroke="#333" stroke-width="2"/>
+  <line x1="235" y1="345" x2="265" y2="345" stroke="#333" stroke-width="2"/>
+  <line x1="245" y1="350" x2="255" y2="350" stroke="#333" stroke-width="2"/>
+
+  <!-- Output node -->
+  <circle cx="250" cy="140" r="4" fill="#333"/>
+  <text x="256" y="118" font-size="11" fill="#6c757d">V<sub>out</sub></text>
+</svg>

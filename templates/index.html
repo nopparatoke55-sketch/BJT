@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lab 02: BJT DC Bias Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="lab-header">
+        <div class="header-left">
+            <img src="https://cdn-icons-png.flaticon.com/512/2965/2965637.png" alt="chip icon" class="chip-icon">
+            <div class="title-group">
+                <h1>Lab 02: BJT DC Bias Web App</h1>
+                <p class="subtitle">ENG29 2121 – Common Emitter (Voltage Divider Bias)</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <a href="#" class="course-link">&lt;/&gt; Computer Programming for Electrical Engineers</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Column 1: Input Parameters -->
+        <section class="card input-card">
+            <h2 class="card-title">⚙️ Input Parameters</h2>
+            <form method="post" action="/calculate">
+                <div class="form-grid">
+                    <div class="field-row">
+                        <label>V<sub>CC</sub> (Supply Voltage)</label>
+                        <div class="input-group">
+                            <input type="text" name="vcc" value="{{ values.vcc }}" required>
+                            <span class="unit">V</span>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <label>R<sub>1</sub> (Upper Divider)</label>
+                        <div class="input-group">
+                            <input type="text" name="r1" value="{{ values.r1 }}" required>
+                            <span class="unit">Ω</span>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <label>R<sub>2</sub> (Lower Divider)</label>
+                        <div class="input-group">
+                            <input type="text" name="r2" value="{{ values.r2 }}" required>
+                            <span class="unit">Ω</span>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <label>R<sub>C</sub> (Collector Resistor)</label>
+                        <div class="input-group">
+                            <input type="text" name="rc" value="{{ values.rc }}" required>
+                            <span class="unit">Ω</span>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <label>R<sub>E</sub> (Emitter Resistor)</label>
+                        <div class="input-group">
+                            <input type="text" name="re" value="{{ values.re }}" required>
+                            <span class="unit">Ω</span>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <label>β (Current Gain)</label>
+                        <div class="input-group">
+                            <input type="text" name="beta" value="{{ values.beta }}" required>
+                            <span class="unit">–</span>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <label>V<sub>BE</sub> (Base–Emitter Voltage)</label>
+                        <div class="input-group">
+                            <input type="text" name="vbe" value="{{ values.vbe }}" required>
+                            <span class="unit">V</span>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-calculate">Calculate DC Bias</button>
+            </form>
+        </section>
+
+        <!-- Column 2: Circuit Diagram -->
+        <section class="card circuit-card">
+            <h2 class="card-title">🔌 Circuit: Common-Emitter Amplifier</h2>
+            <div class="circuit-wrapper">
+                <img src="{{ url_for('static', filename='circuit.svg') }}" alt="BJT Circuit" class="circuit-img">
+            </div>
+        </section>
+
+        <!-- Column 3: DC Bias Results -->
+        <section class="card results-card">
+            <h2 class="card-title">📊 DC Bias Results</h2>
+            {% if result %}
+            <table class="results-table">
+                <tr><td>V<sub>B</sub></td><td>{{ result.vb_fmt }}</td></tr>
+                <tr><td>V<sub>E</sub></td><td>{{ result.ve_fmt }}</td></tr>
+                <tr><td>V<sub>C</sub></td><td>{{ result.vc_fmt }}</td></tr>
+                <tr><td>V<sub>CE</sub></td><td>{{ result.vce_fmt }}</td></tr>
+                <tr><td>I<sub>B</sub></td><td>{{ result.ib_fmt }}</td></tr>
+                <tr><td>I<sub>C</sub></td><td>{{ result.ic_fmt }}</td></tr>
+                <tr><td>I<sub>E</sub></td><td>{{ result.ie_fmt }}</td></tr>
+            </table>
+            {% if result.region == "CUTOFF" %}
+            <div class="status-box warning">
+                ⚠️ Transistor is in cutoff (VBB ≤ VBE); no collector current flows.
+            </div>
+            {% elif result.region == "SATURATION" %}
+            <div class="status-box warning">
+                ⚠️ Transistor is in saturation (VCE < 0.3 V); the linear model no longer applies.
+            </div>
+            {% else %}
+            <div class="status-box success">
+                ✅ Active region approximation OK<br>
+                <small>V<sub>CE</sub> = {{ result.vce_fmt }} > 0.2 V (transistor in active region)</small>
+            </div>
+            {% endif %}
+            {% else %}
+            <p style="color:#6c757d; font-style:italic; margin-top:2rem;">Enter values and click Calculate to see results.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <section class="week-goal">
+        <div class="card">
+            <h2 class="card-title">🎯 Week 2 Goal</h2>
+            <p>Rough target for this lab: Build a Flask web app that takes the circuit parameters,
+            computes the BJT DC bias (V<sub>B</sub>, V<sub>E</sub>, V<sub>C</sub>, V<sub>CE</sub>, I<sub>B</sub>, I<sub>C</sub>, I<sub>E</sub>)
+            for a common-emitter amplifier with voltage-divider bias, and displays the results.</p>
+        </div>
+    </section>
+</body>
+</html>
