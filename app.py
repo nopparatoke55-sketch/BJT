@@ -1,95 +1,114 @@
-"""Flask web app for BJT Common-Emitter DC Bias calculator.
+"""Flask web app for BJT Common-Emitter DC Bias calculator (Lab 03).
 
-This module provides the web interface for the DC bias calculation.
-It imports from bjt.py for all math — no physics hardcoded here.
+Three bias modes are supported: voltage divider (unchanged from Lab 02),
+fixed bias and single-supply emitter bias. All engineering math lives in
+:mod:`bjt`; this module only reads the form, validates, dispatches to the
+correct solver and renders the result.
 """
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
+
 from bjt import (
-    BiasInput,
+    BIAS_MODES,
     validate,
-    solve_thevenin,
-    solve_nodal,
-    solve_stiff_divider,
-    cross_check,
-    fmt_current,
-    fmt_voltage,
+    validate_mode,
+    solve_fixed,
+    solve_emitter,
+    divider_display,
 )
 
 app = Flask(__name__)
 
-# Default values matching the reference screenshot (in ohms)
+# The form displays resistances in kΩ; convert to ohms exactly once here.
+RESISTOR_SCALE = 1000.0
+
+# Defaults are in kΩ and volts, matching the units printed on the form.
 DEFAULTS = {
     "vcc": "12",
-    "r1": "100000",
-    "r2": "22000",
-    "rc": "2200",
-    "re": "1000",
+    "r1": "100",
+    "r2": "22",
+    "rc": "2.2",
+    "re": "1",
+    "rb": "1000",
     "beta": "100",
     "vbe": "0.7",
 }
 
+FIELDS = ("vcc", "r1", "r2", "rc", "re", "rb", "beta", "vbe")
 
-@app.route("/", methods=["GET"])
-def index():
-    """Display the bias calculator form with default values."""
+MODE_LABELS = {
+    "divider": "Voltage Divider Bias",
+    "fixed": "Fixed Bias",
+    "emitter": "Emitter Bias (single supply)",
+}
+
+CIRCUIT_FILES = {
+    "divider": "circuit.svg",
+    "fixed": "circuit-fixed.svg",
+    "emitter": "circuit-emitter.svg",
+}
+
+CIRCUIT_NOTES = {
+    "divider": "R1 and R2 set the base voltage; RC and RE set the operating point.",
+    "fixed": "RB sets the base current; the emitter is tied directly to ground.",
+    "emitter": "RB sets the base current; RE provides DC feedback and stabilises the bias.",
+}
+
+
+def _values_from(source) -> dict[str, str]:
+    """Fill the whole form from *source*, falling back to per-field defaults."""
+    return {field: source.get(field, DEFAULTS[field]) for field in FIELDS}
+
+
+def _render(mode: str, values: dict[str, str], result=None, errors=None):
+    """Render the single page with the current mode and values."""
     return render_template(
         "index.html",
         defaults=DEFAULTS,
-        result=None,
-        errors={},
-        values=DEFAULTS,
+        values=values,
+        result=result,
+        errors=errors or {},
+        mode=mode,
+        mode_label=MODE_LABELS[mode],
+        circuit_file=CIRCUIT_FILES[mode],
+        circuit_note=CIRCUIT_NOTES[mode],
     )
+
+
+@app.route("/", methods=["GET"])
+def index():
+    """Display the calculator form, optionally reloaded for another mode."""
+    mode = request.args.get("mode", "divider")
+    if mode not in BIAS_MODES:
+        mode = "divider"
+    return _render(mode, _values_from(request.args))
 
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
     """Handle form submission, validate, compute, and render results."""
     form = request.form.to_dict()
+    mode = form.get("mode") or "divider"
 
-    # Validate all fields
-    bias, errors = validate(form)
-    if bias is None:
-        # Re-display form with entered values and error messages
-        return render_template(
-            "index.html",
-            defaults=DEFAULTS,
-            result=None,
-            errors=errors,
-            values={key: form.get(key, "") for key in DEFAULTS},
+    # An explicit unknown mode must never silently fall back to divider.
+    if mode not in BIAS_MODES:
+        return _render(
+            "divider",
+            _values_from(form),
+            errors={"mode": "Unknown bias mode."},
         )
 
-    # Compute using stiff divider (primary, matches lab hand calculation)
-    # and exact Thevenin (independent cross-check)
-    stiff_result = solve_stiff_divider(bias)
-    thevenin_result = solve_thevenin(bias)
-    delta = cross_check(stiff_result, thevenin_result)
+    if mode == "divider":
+        model, errors = validate(form, RESISTOR_SCALE)
+        result = divider_display(model) if model is not None else None
+    elif mode == "fixed":
+        model, errors = validate_mode(form, mode, RESISTOR_SCALE)
+        result = solve_fixed(model) if model is not None else None
+    else:  # emitter
+        model, errors = validate_mode(form, mode, RESISTOR_SCALE)
+        result = solve_emitter(model) if model is not None else None
 
-    # Build display-ready result dict from stiff divider (matches screenshot)
-    result = {
-        "region": stiff_result.region.upper(),
-        "ib_fmt": fmt_current(stiff_result.ib),
-        "ic_fmt": fmt_current(stiff_result.ic),
-        "ie_fmt": fmt_current(stiff_result.ie),
-        "vb_fmt": fmt_voltage(stiff_result.vb),
-        "vc_fmt": fmt_voltage(stiff_result.vc),
-        "ve_fmt": fmt_voltage(stiff_result.ve),
-        "vce_fmt": fmt_voltage(stiff_result.vce),
-        "delta_ic": fmt_current(delta["ic"]),
-        "ok": max(delta.values()) < 1e-9,
-        "warning": stiff_result.warning,
-    }
-
-    # Re-use the form values that were submitted
-    submitted_values = {key: form.get(key, "") for key in DEFAULTS}
-
-    return render_template(
-        "index.html",
-        defaults=DEFAULTS,
-        result=result,
-        errors={},
-        values=submitted_values,
-    )
+    return _render(mode, _values_from(form), result=result, errors=errors)
 
 
 if __name__ == "__main__":

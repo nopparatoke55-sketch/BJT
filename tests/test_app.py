@@ -28,7 +28,8 @@ def test_index_shows_form_with_defaults(client):
     assert r.status_code == 200
     body = r.data.decode()
     assert "V<sub>CC</sub>" in body or "Supply Voltage" in body
-    assert b'value="100000"' in r.data
+    # The form now displays resistances in kΩ: the Lab 02 default R1 = 100 kΩ.
+    assert b'name="r1" value="100"' in r.data
 
 
 def test_valid_post_shows_results(client):

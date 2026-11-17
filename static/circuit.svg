@@ -1,94 +1,87 @@
-<svg width="400" height="360" viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
-  <!-- Card background -->
-  <rect width="100%" height="100%" fill="#ffffff" stroke="#dee2e6" stroke-width="1" rx="8" ry="8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 460" role="img" aria-labelledby="cd-title cd-desc">
+  <title id="cd-title">Voltage-divider bias circuit</title>
+  <desc id="cd-desc">NPN common-emitter stage. R1 and R2 set the base voltage, RC is the collector resistor and RE is the emitter resistor.</desc>
+  <defs>
+    <marker id="npn-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#103658"/>
+    </marker>
+  </defs>
+  <style>
+    .wire{stroke:#415e71;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .lead{stroke:#103658;stroke-width:1.9;fill:none;stroke-linecap:round}
+    .body{fill:#ffffff;stroke:#103658;stroke-width:2}
+    .dot{fill:#415e71}
+    .lbl{font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:18px;font-weight:700;fill:#103658}
+    .node{font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:14px;font-weight:700;fill:#07766e}
+    .note{font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;fill:#6c757d}
+    .badge{font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:11.5px;font-weight:700;fill:#07766e;letter-spacing:1.2px}
+  </style>
 
-  <!-- VCC rail across top -->
-  <line x1="130" y1="60" x2="300" y2="60" stroke="#333" stroke-width="2"/>
-  <text x="305" y="56" font-size="13" fill="#0d6efd" font-family="Arial, sans-serif">V<sub>CC</sub> = 12 V</text>
-  <circle cx="300" cy="60" r="3" fill="#333"/>
+  <!-- mode badge -->
+  <rect x="14" y="14" width="120" height="24" rx="12" fill="#e8f6f2" stroke="#b4d7cb"/>
+  <text class="badge" x="74" y="30" text-anchor="middle">DIVIDER BIAS</text>
 
-  <!-- Left vertical rail: VCC -> R1 -> base node -->
-  <line x1="130" y1="60" x2="130" y2="100" stroke="#333" stroke-width="2"/>
+  <!-- supply rail -->
+  <line class="wire" x1="90" y1="70" x2="270" y2="70"/>
+  <line class="wire" x1="180" y1="70" x2="180" y2="46"/>
+  <line x1="169" y1="46" x2="191" y2="46" stroke="#0d6efd" stroke-width="3" stroke-linecap="round"/>
+  <text class="lbl" x="180" y="34" text-anchor="middle" fill="#0d6efd">V<tspan font-size="11" dy="2">CC</tspan></text>
 
-  <!-- R1 zigzag -->
-  <line x1="130" y1="100" x2="110" y2="100" stroke="#333" stroke-width="2"/>
-  <line x1="130" y1="100" x2="150" y2="100" stroke="#333" stroke-width="2"/>
-  <line x1="130" y1="100" x2="130" y2="140" stroke="#333" stroke-width="2"/>
-  <line x1="110" y1="140" x2="150" y2="140" stroke="#333" stroke-width="2"/>
-  <line x1="130" y1="140" x2="130" y2="180" stroke="#333" stroke-width="2"/>
-  <text x="100" y="94" font-size="12" fill="#495057" text-anchor="end">R<sub>1</sub></text>
-  <text x="85" y="124" font-size="11" fill="#6c757d" text-anchor="end">100 kΩ</text>
+  <!-- left divider branch: R1, R2, base lead -->
+  <line class="wire" x1="90" y1="70" x2="90" y2="100"/>
+  <line class="wire" x1="90" y1="156" x2="90" y2="230"/>
+  <line class="wire" x1="90" y1="230" x2="160" y2="230"/>
+  <line class="wire" x1="90" y1="230" x2="90" y2="260"/>
+  <line class="wire" x1="90" y1="316" x2="90" y2="400"/>
 
-  <!-- Base node dot -->
-  <circle cx="130" cy="180" r="4" fill="#333"/>
+  <!-- collector branch: RC -->
+  <line class="wire" x1="270" y1="70" x2="270" y2="100"/>
+  <line class="wire" x1="270" y1="156" x2="270" y2="190"/>
+  <line class="wire" x1="212" y1="190" x2="270" y2="190"/>
 
-  <!-- Base wire from base node to Q1 -->
-  <line x1="130" y1="180" x2="200" y2="180" stroke="#333" stroke-width="2"/>
+  <!-- emitter branch: RE -->
+  <line class="wire" x1="212" y1="272" x2="212" y2="300"/>
+  <line class="wire" x1="212" y1="356" x2="212" y2="400"/>
 
-  <!-- R2 down from base node -->
-  <line x1="130" y1="180" x2="130" y2="220" stroke="#333" stroke-width="2"/>
+  <!-- ground rail -->
+  <line class="wire" x1="90" y1="400" x2="212" y2="400"/>
+  <line class="wire" x1="151" y1="400" x2="151" y2="414"/>
+  <line x1="133" y1="414" x2="169" y2="414" stroke="#415e71" stroke-width="3" stroke-linecap="round"/>
+  <line x1="139" y1="420" x2="163" y2="420" stroke="#415e71" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="145" y1="426" x2="157" y2="426" stroke="#415e71" stroke-width="2" stroke-linecap="round"/>
+  <text class="note" x="151" y="442" text-anchor="middle">GND</text>
 
-  <!-- R2 zigzag -->
-  <line x1="130" y1="220" x2="110" y2="220" stroke="#333" stroke-width="2"/>
-  <line x1="130" y1="220" x2="150" y2="220" stroke="#333" stroke-width="2"/>
-  <line x1="130" y1="220" x2="130" y2="260" stroke="#333" stroke-width="2"/>
-  <line x1="110" y1="260" x2="150" y2="260" stroke="#333" stroke-width="2"/>
-  <line x1="130" y1="260" x2="130" y2="300" stroke="#333" stroke-width="2"/>
-  <text x="100" y="214" font-size="12" fill="#495057" text-anchor="end">R<sub>2</sub></text>
-  <text x="85" y="244" font-size="11" fill="#6c757d" text-anchor="end">22 kΩ</text>
+  <!-- transistor -->
+  <circle cx="200" cy="232" r="40" fill="#f3f8fd" stroke="#9db5c6" stroke-width="1.6"/>
+  <line class="lead" x1="160" y1="230" x2="178" y2="230"/>
+  <line class="lead" x1="178" y1="208" x2="178" y2="256" stroke-width="4"/>
+  <line class="lead" x1="178" y1="218" x2="212" y2="190"/>
+  <line class="lead" x1="178" y1="246" x2="212" y2="272" marker-end="url(#npn-arrow)"/>
 
-  <!-- Ground left -->
-  <line x1="130" y1="300" x2="130" y2="310" stroke="#333" stroke-width="2"/>
-  <line x1="115" y1="305" x2="145" y2="305" stroke="#333" stroke-width="2"/>
-  <line x1="125" y1="310" x2="135" y2="310" stroke="#333" stroke-width="2"/>
+  <!-- resistor bodies (IEC style) -->
+  <rect class="body" x="78" y="100" width="24" height="56" rx="3"/>
+  <rect class="body" x="78" y="260" width="24" height="56" rx="3"/>
+  <rect class="body" x="258" y="100" width="24" height="56" rx="3"/>
+  <rect class="body" x="200" y="300" width="24" height="56" rx="3"/>
 
-  <!-- Right vertical rail: VCC -> RC -->
-  <line x1="300" y1="60" x2="300" y2="100" stroke="#333" stroke-width="2"/>
+  <!-- VCE annotation -->
+  <line x1="310" y1="190" x2="310" y2="272" stroke="#8aa4b6" stroke-width="1.4" stroke-dasharray="4 4"/>
+  <line x1="304" y1="190" x2="316" y2="190" stroke="#8aa4b6" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="304" y1="272" x2="316" y2="272" stroke="#8aa4b6" stroke-width="1.4" stroke-linecap="round"/>
+  <text class="node" x="322" y="235">V<tspan font-size="10" dy="2">CE</tspan></text>
 
-  <!-- RC zigzag -->
-  <line x1="300" y1="100" x2="280" y2="100" stroke="#333" stroke-width="2"/>
-  <line x1="300" y1="100" x2="320" y2="100" stroke="#333" stroke-width="2"/>
-  <line x1="300" y1="100" x2="300" y2="140" stroke="#333" stroke-width="2"/>
-  <line x1="280" y1="140" x2="320" y2="140" stroke="#333" stroke-width="2"/>
-  <line x1="300" y1="140" x2="300" y2="180" stroke="#333" stroke-width="2"/>
-  <text x="312" y="94" font-size="12" fill="#495057">R<sub>C</sub></text>
-  <text x="322" y="124" font-size="11" fill="#6c757d">2.2 kΩ</text>
+  <!-- junction dots -->
+  <circle class="dot" cx="180" cy="70" r="3.2"/>
+  <circle class="dot" cx="90" cy="230" r="3.2"/>
 
-  <!-- Collector wire from RC bottom to Q1 top -->
-  <line x1="300" y1="140" x2="240" y2="140" stroke="#333" stroke-width="2"/>
-  <line x1="240" y1="140" x2="240" y2="170" stroke="#333" stroke-width="2"/>
-
-  <!-- Q1 transistor circle -->
-  <circle cx="240" cy="190" r="20" stroke="#333" stroke-width="2" fill="#fff"/>
-  <line x1="240" y1="170" x2="240" y2="210" stroke="#333" stroke-width="2"/>
-  <line x1="220" y1="190" x2="260" y2="190" stroke="#333" stroke-width="2"/>
-  <line x1="240" y1="170" x2="225" y2="190" stroke="#333" stroke-width="1.5"/>
-  <line x1="225" y1="190" x2="240" y2="210" stroke="#333" stroke-width="1.5"/>
-  <text x="256" y="194" font-size="12" fill="#0d6efd" font-family="Arial, sans-serif">Q1</text>
-  <text x="256" y="208" font-size="10" fill="#6c757d" font-family="Arial, sans-serif">NPN</text>
-  <text x="256" y="221" font-size="10" fill="#6c757d" font-family="Arial, sans-serif">(β = 100)</text>
-
-  <!-- Base wire into Q1 left side -->
-  <line x1="200" y1="180" x2="220" y2="190" stroke="#333" stroke-width="2"/>
-
-  <!-- Emitter wire down from Q1 -->
-  <line x1="240" y1="210" x2="240" y2="240" stroke="#333" stroke-width="2"/>
-
-  <!-- RE zigzag -->
-  <line x1="240" y1="240" x2="220" y2="240" stroke="#333" stroke-width="2"/>
-  <line x1="240" y1="240" x2="260" y2="240" stroke="#333" stroke-width="2"/>
-  <line x1="240" y1="240" x2="240" y2="280" stroke="#333" stroke-width="2"/>
-  <line x1="220" y1="280" x2="260" y2="280" stroke="#333" stroke-width="2"/>
-  <line x1="240" y1="280" x2="240" y2="300" stroke="#333" stroke-width="2"/>
-  <text x="270" y="234" font-size="12" fill="#495057">R<sub>E</sub></text>
-  <text x="275" y="264" font-size="11" fill="#6c757d">1.0 kΩ</text>
-
-  <!-- Ground right -->
-  <line x1="240" y1="300" x2="240" y2="310" stroke="#333" stroke-width="2"/>
-  <line x1="225" y1="305" x2="255" y2="305" stroke="#333" stroke-width="2"/>
-  <line x1="235" y1="310" x2="245" y2="310" stroke="#333" stroke-width="2"/>
-
-  <!-- Vout node at collector -->
-  <circle cx="300" cy="110" r="4" fill="#333"/>
-  <text x="305" y="88" font-size="11" fill="#6c757d" font-family="Arial, sans-serif">V<sub>out</sub></text>
+  <!-- labels -->
+  <text class="lbl" x="68" y="133" text-anchor="end">R<tspan font-size="11" dy="2">1</tspan></text>
+  <text class="lbl" x="68" y="293" text-anchor="end">R<tspan font-size="11" dy="2">2</tspan></text>
+  <text class="lbl" x="292" y="133">R<tspan font-size="11" dy="2">C</tspan></text>
+  <text class="lbl" x="234" y="333">R<tspan font-size="11" dy="2">E</tspan></text>
+  <text class="node" x="108" y="222">V<tspan font-size="10" dy="2">B</tspan></text>
+  <text class="node" x="282" y="184">V<tspan font-size="10" dy="2">C</tspan></text>
+  <text class="node" x="224" y="284">V<tspan font-size="10" dy="2">E</tspan></text>
+  <text class="node" x="246" y="226">Q<tspan font-size="10" dy="2">1</tspan></text>
+  <text class="note" x="246" y="242" font-size="11">NPN</text>
 </svg>

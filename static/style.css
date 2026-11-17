@@ -80,7 +80,7 @@ body {
     margin: 1.5rem auto;
     padding: 0 1rem;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.15fr) minmax(0, 0.9fr);
     gap: 1.5rem;
 }
 
@@ -122,17 +122,33 @@ body {
     flex: 1;
     font-size: 0.95rem;
     color: #495057;
-    min-width: 150px;
+    min-width: 130px;
+}
+
+.mode-row {
+    flex-wrap: wrap;
+}
+
+.mode-row label {
+    flex: 1 0 100%;
+}
+
+.mode-row .input-group {
+    flex: 1 1 100%;
 }
 
 .input-group {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .input-group input[type="text"] {
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
     padding: 0.45rem 0.75rem;
     border: 1px solid #ced4da;
     border-radius: 4px;
@@ -147,10 +163,57 @@ body {
     box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
 }
 
+.input-group select {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.45rem 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group select:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
+}
+
 .unit {
     font-size: 0.9rem;
     color: #6c757d;
     white-space: nowrap;
+}
+
+.btn-mode {
+    background: #e9ecef;
+    color: #0d6efd;
+    border: 1px solid #ced4da;
+    padding: 0.45rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-mode:hover {
+    background: #dee2e6;
+}
+
+.field-error {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin: -0.35rem 0 0.1rem;
+    line-height: 1.35;
+}
+
+.form-note {
+    margin: 0.35rem 0 0;
+    font-size: 0.8rem;
+    color: #6c757d;
+    line-height: 1.4;
 }
 
 /* ---------- Buttons ---------- */
@@ -183,11 +246,12 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 400px;
+    padding: 1.25rem 1rem;
 }
 
 .circuit-wrapper {
     width: 100%;
-    max-width: 380px;
+    max-width: 100%;
     margin: 0 auto;
     background: #f8f9fa;
     border: 1px solid #dee2e6;
@@ -199,6 +263,14 @@ body {
     width: 100%;
     height: auto;
     display: block;
+}
+
+.circuit-note {
+    margin: 0.75rem 0 0;
+    font-size: 0.82rem;
+    color: #6c757d;
+    text-align: center;
+    line-height: 1.45;
 }
 
 /* ---------- Results Table ---------- */
@@ -227,6 +299,19 @@ body {
     font-weight: 500;
 }
 
+.result-mode {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.cross-check {
+    margin: 0.75rem 0 0;
+    font-size: 0.82rem;
+    color: #6c757d;
+    font-family: "SF Mono", "Consolas", "Monaco", monospace;
+}
+
 /* ---------- Status Boxes ---------- */
 .status-box {
     padding: 0.9rem 1rem;
@@ -234,6 +319,7 @@ body {
     font-size: 0.95rem;
     margin-bottom: 0;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
     line-height: 1.4;
@@ -253,6 +339,7 @@ body {
 
 .status-box small {
     display: block;
+    flex-basis: 100%;
     margin-top: 0.25rem;
     opacity: 0.85;
     font-weight: 400;
@@ -279,7 +366,7 @@ body {
 /* ---------- Responsive ---------- */
 @media (max-width: 992px) {
     .container {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
     .week-goal {
         grid-column: 1 / -1;
@@ -288,7 +375,17 @@ body {
 
 @media (max-width: 576px) {
     .container {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .results-card,
+    .week-goal {
+        grid-column: 1 / -1;
+    }
+    .field-row {
+        flex-wrap: wrap;
+    }
+    .field-row label {
+        min-width: 100%;
     }
     .lab-header {
         flex-direction: column;
