@@ -35,11 +35,11 @@ Compare against the unrounded hand calculation:
 
 | Case | Mode and inputs | Expected (hand calc) | Observed (page) | Method | Status |
 |---|---|---|---|---|---|
-| A1 · original mode | Divider · R1 = 100 kΩ, R2 = 22 kΩ, RE = 1 kΩ | I_C = ___ mA · V_CE = ___ V | — | — | — |
-| A2 · Fixed | Fixed · RB = 1 MΩ (enter `1000`) | I_C = ___ mA · V_CE = ___ V (no RE field needed) | — | — | — |
-| A3 · Emitter | Emitter · RB = 1 MΩ (enter `1000`), RE = 1 kΩ (enter `1`) | I_C = ___ mA · V_CE = ___ V | — | — | — |
-| A4 · single change | Emitter · same as A3 but RE = 2 kΩ (enter `2`) | Prediction: I_C will ☐ increase ☐ decrease because ________ · I_C = ___ mA · V_CE = ___ V | — | — | — |
-| A5 · invalid input | Fixed · RB = 0 | Field message for RB; page does not crash and shows no result from a previous round | — | — | — |
+| A1 · original mode | Divider · R1 = 100 kΩ, R2 = 22 kΩ, RE = 1 kΩ | I_C = 1.449 mA · V_CE = 7.347 V | I_C = 1.449 mA · V_CE = 7.347 V | OpenCode Browser | PASS |
+| A2 · Fixed | Fixed · RB = 1 MΩ (enter `1000`) | I_C = 1.130 mA · V_CE = 9.514 V (no RE field needed) | I_C = 1.130 mA · V_CE = 9.514 V | OpenCode Browser | PASS |
+| A3 · Emitter | Emitter · RB = 1 MΩ (enter `1000`), RE = 1 kΩ (enter `1`) | I_C = 1.026 mA · V_CE = 8.705 V | I_C = 1.026 mA · V_CE = 8.705 V | OpenCode Browser | PASS |
+| A4 · single change | Emitter · same as A3 but RE = 2 kΩ (enter `2`) | Prediction: I_C will ☐ decrease because increasing RE reduces IB and thus IC · I_C = 0.940 mA · V_CE = 8.033 V | I_C = 0.940 mA · V_CE = 8.033 V (IC decreased from A3 as predicted) | OpenCode Browser | PASS |
+| A5 · invalid input | Fixed · RB = 0 | Field message for RB; page does not crash and shows no result from a previous round | RB must be a number. Error shown. No results displayed. No crash. | OpenCode Browser | PASS |
 
 **Method** must name what was actually used: `Playwright MCP`, `OpenCode Browser`,
 or `Manual`. Mark `PASS`, `FAIL`, or `NOT RUN` (with the blocker) in **Status**.
