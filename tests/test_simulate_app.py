@@ -63,6 +63,14 @@ def test_index_has_three_column_workbench_and_no_placeholder_plots(client):
     assert "plot-svg" not in body
 
 
+def test_simulation_units_are_not_replaced_by_question_marks(client):
+    body = client.get("/").data.decode()
+    assert "kΩ" in body
+    assert "µF" in body
+    assert "µs" in body
+    assert "?" not in body
+
+
 def test_simulate_dc_success_shows_spice_and_reference(client, monkeypatch):
     fake = _run(
         "dc",

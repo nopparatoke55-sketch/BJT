@@ -11,7 +11,7 @@
 | `docs/captures/lab04-workbench-layout.jpeg` | Browser screenshot of the initial three-column workbench. |
 | `docs/captures/lab04-ac-real-run.jpeg` | Browser screenshot after a real ngspice AC run with parsed plots. |
 | `tests/test_spice_engine.py` | 51 tests covering netlist generation, synthetic `wrdata` parsers, validation errors, subprocess error paths (stubbed, no live ngspice). |
-| `tests/test_simulate_app.py` | /simulate HTTP tests: success, invalid input, missing engine, AC/Transient chart rendering. |
+| `tests/test_simulate_app.py` | /simulate HTTP tests: success, invalid input, missing engine, AC/Transient chart rendering, three-column workbench and UTF-8 unit rendering. |
 | `README.md` | Full setup/run/ngspice config/provenance documentation (replaces stale merge-conflict markers). |
 | `AGENTS.md` | Engineering/AI provenance rules. |
 | `docs/validation.md` | B1–B8 acceptance table with real ngspice-47 observed values + browser pass evidence. |
@@ -37,7 +37,7 @@
 ## What the student verified
 
 ### Automated tests
-- `pytest -q` → **52 passed** (Lab 03 math, Flask routes, Lab 04 netlist/parser/validation/error paths, /simulate HTTP tests, three-column workbench/no-placeholder check)
+- `pytest -q` → **53 passed** (Lab 03 math, Flask routes, Lab 04 netlist/parser/validation/error paths, /simulate HTTP tests, three-column workbench/no-placeholder and UTF-8 unit checks)
 
 ### Real ngspice-47 verification
 - **ngspice-47** (portable 64-bit Windows build, `Spice64\bin\ngspice_con.exe`) was installed and configured via `NGSPICE_BIN`

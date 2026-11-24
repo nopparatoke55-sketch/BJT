@@ -175,7 +175,7 @@
 
         <!-- Lab 04: SPICE simulation section -->
         <section class="card simulation-card" id="simulation">
-            <h2 class="card-title">?? Lab 04 ? SPICE Simulation ? CE Voltage Divider</h2>
+            <h2 class="card-title">🧪 Lab 04 · SPICE Simulation — CE Voltage Divider</h2>
             <p class="sim-intro">
                 One reference common-emitter circuit is simulated with the real ngspice engine.
                 The Lab 03 analytical result above is kept separate and is <strong>not</strong> used as a
@@ -201,11 +201,11 @@
 
                     <dl class="sim-ref-list">
                         <dt>V<sub>CC</sub></dt><dd>{{ sim_values.vcc }} V</dd>
-                        <dt>R<sub>1</sub> / R<sub>2</sub></dt><dd>{{ sim_values.r1 }} / {{ sim_values.r2 }} k?</dd>
-                        <dt>R<sub>C</sub> / R<sub>E</sub></dt><dd>{{ sim_values.rc }} / {{ sim_values.re }} k?</dd>
-                        <dt>R<sub>L</sub></dt><dd>{{ sim_values.rl }} k?</dd>
-                        <dt>C<sub>in</sub> / C<sub>out</sub></dt><dd>{{ sim_values.cin }} / {{ sim_values.cout }} ?F</dd>
-                        <dt>Source</dt><dd>{{ sim_values.amp_mv }} mV ? {{ sim_values.freq_hz }} Hz</dd>
+                        <dt>R<sub>1</sub> / R<sub>2</sub></dt><dd>{{ sim_values.r1 }} / {{ sim_values.r2 }} kΩ</dd>
+                        <dt>R<sub>C</sub> / R<sub>E</sub></dt><dd>{{ sim_values.rc }} / {{ sim_values.re }} kΩ</dd>
+                        <dt>R<sub>L</sub></dt><dd>{{ sim_values.rl }} kΩ</dd>
+                        <dt>C<sub>in</sub> / C<sub>out</sub></dt><dd>{{ sim_values.cin }} / {{ sim_values.cout }} µF</dd>
+                        <dt>Source</dt><dd>{{ sim_values.amp_mv }} mV · {{ sim_values.freq_hz }} Hz</dd>
                     </dl>
 
                     <form method="post" action="/simulate" autocomplete="off" class="sim-form">
@@ -236,7 +236,7 @@
                                 <label for="sim_r1">R<sub>1</sub></label>
                                 <div class="input-group">
                                     <input type="text" id="sim_r1" name="r1" value="{{ sim_values.r1 }}" required aria-label="Simulation R1 in kilohms">
-                                    <span class="unit">k?</span>
+                                    <span class="unit">kΩ</span>
                                 </div>
                                 {% if sim_errors.r1 %}<p class="field-error">{{ sim_errors.r1 }}</p>{% endif %}
                             </div>
@@ -245,7 +245,7 @@
                                 <label for="sim_r2">R<sub>2</sub></label>
                                 <div class="input-group">
                                     <input type="text" id="sim_r2" name="r2" value="{{ sim_values.r2 }}" required aria-label="Simulation R2 in kilohms">
-                                    <span class="unit">k?</span>
+                                    <span class="unit">kΩ</span>
                                 </div>
                                 {% if sim_errors.r2 %}<p class="field-error">{{ sim_errors.r2 }}</p>{% endif %}
                             </div>
@@ -254,7 +254,7 @@
                                 <label for="sim_rc">R<sub>C</sub></label>
                                 <div class="input-group">
                                     <input type="text" id="sim_rc" name="rc" value="{{ sim_values.rc }}" required aria-label="Simulation RC in kilohms">
-                                    <span class="unit">k?</span>
+                                    <span class="unit">kΩ</span>
                                 </div>
                                 {% if sim_errors.rc %}<p class="field-error">{{ sim_errors.rc }}</p>{% endif %}
                             </div>
@@ -263,7 +263,7 @@
                                 <label for="sim_re">R<sub>E</sub></label>
                                 <div class="input-group">
                                     <input type="text" id="sim_re" name="re" value="{{ sim_values.re }}" required aria-label="Simulation RE in kilohms">
-                                    <span class="unit">k?</span>
+                                    <span class="unit">kΩ</span>
                                 </div>
                                 {% if sim_errors.re %}<p class="field-error">{{ sim_errors.re }}</p>{% endif %}
                             </div>
@@ -272,7 +272,7 @@
                                 <label for="sim_rl">R<sub>L</sub></label>
                                 <div class="input-group">
                                     <input type="text" id="sim_rl" name="rl" value="{{ sim_values.rl }}" required aria-label="Simulation RL in kilohms">
-                                    <span class="unit">k?</span>
+                                    <span class="unit">kΩ</span>
                                 </div>
                                 {% if sim_errors.rl %}<p class="field-error">{{ sim_errors.rl }}</p>{% endif %}
                             </div>
@@ -281,7 +281,7 @@
                                 <label for="sim_cin">C<sub>in</sub></label>
                                 <div class="input-group">
                                     <input type="text" id="sim_cin" name="cin" value="{{ sim_values.cin }}" required aria-label="Input coupling capacitor in microfarads">
-                                    <span class="unit">?F</span>
+                                    <span class="unit">µF</span>
                                 </div>
                                 {% if sim_errors.cin %}<p class="field-error">{{ sim_errors.cin }}</p>{% endif %}
                             </div>
@@ -290,7 +290,7 @@
                                 <label for="sim_cout">C<sub>out</sub></label>
                                 <div class="input-group">
                                     <input type="text" id="sim_cout" name="cout" value="{{ sim_values.cout }}" required aria-label="Output coupling capacitor in microfarads">
-                                    <span class="unit">?F</span>
+                                    <span class="unit">µF</span>
                                 </div>
                                 {% if sim_errors.cout %}<p class="field-error">{{ sim_errors.cout }}</p>{% endif %}
                             </div>
@@ -344,7 +344,7 @@
                                 <label for="sim_tstep">Time step</label>
                                 <div class="input-group">
                                     <input type="text" id="sim_tstep" name="tstep_us" value="{{ sim_values.tstep_us }}" placeholder="auto" aria-label="Transient time step in microseconds; blank uses 2000 steps">
-                                    <span class="unit">?s</span>
+                                    <span class="unit">µs</span>
                                 </div>
                                 {% if sim_errors.tstep_us %}<p class="field-error">{{ sim_errors.tstep_us }}</p>{% endif %}
                             </div>
@@ -354,10 +354,10 @@
                             <summary>Analytical reference settings</summary>
                             <div class="sim-grid">
                                 <div class="sim-field">
-                                    <label for="sim_beta_ref">Reference ?</label>
+                                    <label for="sim_beta_ref">Reference β</label>
                                     <div class="input-group">
                                         <input type="text" id="sim_beta_ref" name="beta_ref" value="{{ sim_values.beta_ref }}" aria-label="Analytical reference beta">
-                                        <span class="unit">?</span>
+                                        <span class="unit">–</span>
                                     </div>
                                 </div>
                                 <div class="sim-field">
@@ -379,7 +379,7 @@
                         </details>
 
                         <p class="form-note">
-                            Units: k? ? ?F ? mV peak ? Hz. The netlist is generated from these exact values.
+                            Units: kΩ · µF · mV peak · Hz. The netlist is generated from these exact values.
                         </p>
                         <button type="submit" class="btn-calculate" id="run-sim">Run Simulation</button>
                     </form>
@@ -397,7 +397,7 @@
 
                     {% if sim_errors %}
                     <div class="status-box warning" role="alert">
-                        ?? Fix the highlighted simulation inputs. No solver was called.
+                        ⚠️ Fix the highlighted simulation inputs. No solver was called.
                     </div>
                     {% endif %}
 
@@ -421,13 +421,13 @@
 
                     {% if sim_result %}
                     <div class="run-status success">
-                        ? {{ sim_result.analysis|upper }} run completed ? Engine: <strong>{{ sim_result.engine }}</strong>
-                        ? {{ sim_result.version }} ? Model: <strong>{{ sim_result.model }}</strong>
+                        ✅ {{ sim_result.analysis|upper }} run completed · Engine: <strong>{{ sim_result.engine }}</strong>
+                        · {{ sim_result.version }} · Model: <strong>{{ sim_result.model }}</strong>
                         <small>All plots and values below were parsed from files ngspice wrote for this run.</small>
                     </div>
 
                     {% for warning in sim_result.warnings %}
-                    <div class="status-box warning">?? {{ warning }}</div>
+                    <div class="status-box warning">⚠️ {{ warning }}</div>
                     {% endfor %}
 
                     {% if sim_result.analysis == "dc" %}
@@ -442,7 +442,7 @@
                     {% elif sim_result.analysis == "ac" %}
                     <h4 class="plot-title">AC Frequency Response (.ac)</h4>
                     <div class="sim-stats">
-                        <div><span>Sweep</span><strong>{{ sim_result.ac.start }} ? {{ sim_result.ac.stop }}</strong></div>
+                        <div><span>Sweep</span><strong>{{ sim_result.ac.start }} → {{ sim_result.ac.stop }}</strong></div>
                         <div><span>Points</span><strong>{{ sim_result.ac.points }}</strong></div>
                         <div><span>Peak gain</span><strong>{{ sim_result.ac.max_gain_db }}</strong></div>
                         <div><span>Peak at</span><strong>{{ sim_result.ac.max_gain_freq }}</strong></div>
@@ -452,7 +452,7 @@
                     <div class="chart">{{ sim_result.bode_phase_svg|safe }}</div>
                     <p class="form-note">
                         Gain is |V<sub>out</sub>/V<sub>in</sub>| with V<sub>in</sub> at the ideal source node.
-                        Cutoff frequencies appear only when a ?3 dB crossing is inside the sweep.
+                        Cutoff frequencies appear only when a −3 dB crossing is inside the sweep.
                     </p>
                     {% else %}
                     <h4 class="plot-title">Transient Response (.tran)</h4>
@@ -465,7 +465,7 @@
                         <div>
                             <span>Phase</span>
                             <strong>
-                                {% if sim_result.tran.inverted %}inverted (~180?)
+                                {% if sim_result.tran.inverted %}inverted (~180°)
                                 {% elif sim_result.tran.inverted is none %}not enough data
                                 {% else %}in phase{% endif %}
                             </strong>
@@ -486,8 +486,8 @@
                     </details>
                     {% else %}
                     <div class="empty-plots">
-                        <div class="empty-plot-card">Bode response ? appears after a successful AC run</div>
-                        <div class="empty-plot-card tall">Input / Output waveforms ? appears after a successful Transient run</div>
+                        <div class="empty-plot-card">Bode response — appears after a successful AC run</div>
+                        <div class="empty-plot-card tall">Input / Output waveforms — appears after a successful Transient run</div>
                         <p class="form-note">
                             No placeholder traces are shown. Every plot is generated from the output files
                             written by ngspice for the run you submit.
@@ -537,7 +537,7 @@
                             <span>AC Frequency Response</span>
                             {% if sim_result and sim_result.analysis == "ac" %}
                             <strong>{{ sim_result.ac.max_gain_db }} at {{ sim_result.ac.max_gain_freq }}</strong>
-                            <small>{{ sim_result.ac.phase_at_max }} ? ?3 dB: {{ sim_result.ac.cutoffs.low }} / {{ sim_result.ac.cutoffs.high }}</small>
+                            <small>{{ sim_result.ac.phase_at_max }} · −3 dB: {{ sim_result.ac.cutoffs.low }} / {{ sim_result.ac.cutoffs.high }}</small>
                             {% else %}
                             <em>Waiting for an AC run</em>
                             {% endif %}
@@ -546,8 +546,8 @@
                         <div class="summary-block">
                             <span>Transient Response</span>
                             {% if sim_result and sim_result.analysis == "tran" %}
-                            <strong>{{ sim_result.tran.vin_pp }} ? {{ sim_result.tran.vout_pp }}</strong>
-                            <small>Gain {{ sim_result.tran.gain }} ? {{ sim_result.tran.duration }} ? {{ sim_result.tran.points }} points</small>
+                            <strong>{{ sim_result.tran.vin_pp }} → {{ sim_result.tran.vout_pp }}</strong>
+                            <small>Gain {{ sim_result.tran.gain }} · {{ sim_result.tran.duration }} · {{ sim_result.tran.points }} points</small>
                             {% else %}
                             <em>Waiting for a Transient run</em>
                             {% endif %}
@@ -556,12 +556,12 @@
 
                     {% if sim_result and sim_result.analysis == "dc" %}
                     <p class="model-note">
-                        Reference uses ? = {{ sim_result.dc.beta_ref }} and V<sub>BE</sub> = {{ sim_result.dc.vbe_ref }} V.
+                        Reference uses β = {{ sim_result.dc.beta_ref }} and V<sub>BE</sub> = {{ sim_result.dc.vbe_ref }} V.
                         The SPICE run uses <strong>{{ sim_result.model }}</strong>; different models are not expected
                         to match every digit. Analytical region: <strong>{{ sim_result.dc.region }}</strong>.
                     </p>
                     {% if sim_result.dc.warning %}
-                    <div class="status-box warning">?? Analytical reference: {{ sim_result.dc.warning }}</div>
+                    <div class="status-box warning">⚠️ Analytical reference: {{ sim_result.dc.warning }}</div>
                     {% endif %}
                     {% else %}
                     <p class="model-note">
