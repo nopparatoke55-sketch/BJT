@@ -26,7 +26,7 @@
   <text class="lbl" x="230" y="33" text-anchor="middle" fill="#0d6efd">+V<tspan font-size="11" dy="2">CC</tspan></text>
 
   <!-- base divider: R1 above, R2 below -->
-  <path class="w" d="M151 120 V192 M151 219 V248"/>
+  <path class="w" d="M151 120 V248 M151 285 V290"/>
   <rect class="dev" x="144" y="76" width="14" height="44" rx="2"/>
   <rect class="dev" x="144" y="248" width="14" height="37" rx="2"/>
   <text class="small" x="132" y="104" text-anchor="end">R1</text>
