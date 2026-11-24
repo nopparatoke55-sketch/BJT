@@ -8,8 +8,8 @@
 (function () {
   "use strict";
 
-  var select = document.getElementById("analysis");
-  if (!select) {
+  var radios = document.querySelectorAll('input[name="analysis"]');
+  if (!radios.length) {
     return;
   }
 
@@ -19,8 +19,17 @@
     tran: "Run Transient (.tran)"
   };
 
+  function selectedMode() {
+    for (var i = 0; i < radios.length; i += 1) {
+      if (radios[i].checked) {
+        return radios[i].value;
+      }
+    }
+    return "dc";
+  }
+
   function update() {
-    var mode = select.value;
+    var mode = selectedMode();
 
     document.querySelectorAll("[data-analysis]").forEach(function (element) {
       var modes = element.getAttribute("data-analysis").split(/\s+/);
@@ -31,8 +40,14 @@
     if (button && labels[mode]) {
       button.textContent = labels[mode];
     }
+
+    document.querySelectorAll(".analysis-strip span").forEach(function (badge) {
+      badge.classList.toggle("active", badge.textContent.trim() === labels[mode].split(" ")[0]);
+    });
   }
 
-  select.addEventListener("change", update);
+  radios.forEach(function (radio) {
+    radio.addEventListener("change", update);
+  });
   update();
 })();

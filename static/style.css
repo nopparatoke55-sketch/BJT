@@ -420,25 +420,158 @@ body {
     line-height: 1.6;
 }
 
+/* Three-column workbench: circuit + parameters | plots | results. */
+.sim-workbench {
+    display: grid;
+    grid-template-columns: minmax(280px, 1.05fr) minmax(360px, 1.35fr) minmax(240px, 0.9fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.sim-panel {
+    min-width: 0;
+    background: #ffffff;
+    border: 1px solid #dce7ee;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.sim-panel-input {
+    background: #fbfdff;
+}
+
+.sim-panel-results {
+    background: #f7fafc;
+}
+
+.sim-panel-title {
+    margin: 0 0 0.8rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 2px solid #e3edf3;
+    color: #103658;
+    font-size: 1.05rem;
+}
+
+.sim-circuit {
+    margin: 0;
+    background: #ffffff;
+    border: 1px solid #dce7ee;
+    border-radius: 6px;
+    padding: 0.6rem;
+}
+
+.ce-circuit-img {
+    display: block;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    margin: 0 auto;
+    background: #ffffff;
+}
+
+.sim-circuit figcaption {
+    color: #6c757d;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    margin-top: 0.5rem;
+}
+
+.sim-ref-list {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.22rem 0.7rem;
+    margin: 0.8rem 0;
+    font-size: 0.82rem;
+}
+
+.sim-ref-list dt {
+    color: #486275;
+    font-weight: 600;
+}
+
+.sim-ref-list dd {
+    margin: 0;
+    font-family: "SF Mono", "Consolas", "Monaco", monospace;
+    color: #103658;
+    overflow-wrap: anywhere;
+}
+
 .sim-form {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+}
+
+.analysis-picker {
+    border: 0;
+    padding: 0;
+    margin: 0 0 0.9rem;
+}
+
+.analysis-picker legend {
+    padding: 0;
+    color: #495057;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.analysis-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+}
+
+.analysis-option {
+    position: relative;
+    display: block;
+    min-width: 0;
+}
+
+.analysis-option input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.analysis-option span {
+    display: block;
+    padding: 0.5rem 0.25rem;
+    border: 1px solid #cddce7;
+    border-radius: 5px;
+    background: #eef5fa;
+    color: #164668;
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+}
+
+.analysis-option input:checked + span {
+    background: #e7f3ef;
+    border-color: #a7cfc2;
+    color: #13645c;
+}
+
+.analysis-option input:focus-visible + span {
+    outline: 2px solid #0d6efd;
+    outline-offset: 2px;
 }
 
 .sim-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.85rem 1.1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem 0.8rem;
 }
 
 .sim-field {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.25rem;
     min-width: 0;
 }
 
 .sim-field label {
-    font-size: 0.88rem;
+    font-size: 0.84rem;
     color: #495057;
     font-weight: 500;
 }
@@ -452,47 +585,130 @@ body {
 }
 
 .sim-advanced {
-    margin-top: 1rem;
+    margin-top: 0.9rem;
     border: 1px solid #e3e8ee;
     border-radius: 6px;
-    padding: 0.7rem 0.9rem;
+    padding: 0.65rem 0.75rem;
     background: #fafcfe;
 }
 
 .sim-advanced summary {
     cursor: pointer;
     color: #0d6efd;
-    font-size: 0.9rem;
+    font-size: 0.86rem;
     font-weight: 600;
 }
 
 .sim-advanced .sim-grid {
-    margin-top: 0.8rem;
+    margin-top: 0.7rem;
 }
 
-.sim-error {
-    margin-top: 1rem;
-    word-break: break-word;
+/* Center panel */
+.analysis-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
+}
+
+.analysis-strip span {
+    padding: 0.42rem 0.25rem;
+    border: 1px solid #dce7ee;
+    border-radius: 5px;
+    background: #eef5fa;
+    color: #486275;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.analysis-strip span.active {
+    background: #e7f3ef;
+    border-color: #a7cfc2;
+    color: #13645c;
+}
+
+.run-status {
+    margin-bottom: 0.8rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.84rem;
+    line-height: 1.45;
+}
+
+.run-status.success {
+    background: #e7f3ef;
+    border: 1px solid #a7cfc2;
+    color: #13645c;
+}
+
+.run-status small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #486275;
+}
+
+.plot-title {
+    margin: 1rem 0 0.5rem;
+    color: #254d67;
+    font-size: 0.95rem;
+}
+
+.empty-plots {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.empty-plot-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 116px;
+    padding: 0.8rem;
+    border: 1px dashed #c9d9e4;
+    border-radius: 6px;
+    background: #fafcfe;
+    color: #6c757d;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.empty-plot-card.tall {
+    min-height: 180px;
+}
+
+.text-chart {
+    color: #486275;
+    font-size: 0.86rem;
+    line-height: 1.5;
+}
+
+.text-chart strong {
+    color: #13645c;
+}
+
+.text-chart p {
+    margin: 0.3rem 0 0;
 }
 
 .sim-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.6rem;
-    margin: 0.8rem 0 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+    gap: 0.5rem;
+    margin: 0.7rem 0;
 }
 
 .sim-stats > div {
     background: #f5f9fc;
     border: 1px solid #e1ebf2;
     border-radius: 6px;
-    padding: 0.55rem 0.7rem;
+    padding: 0.5rem 0.6rem;
     min-width: 0;
 }
 
 .sim-stats span {
     display: block;
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     color: #6c757d;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -501,14 +717,14 @@ body {
 .sim-stats strong {
     display: block;
     margin-top: 0.15rem;
-    font-size: 0.98rem;
+    font-size: 0.9rem;
     color: #0b2b45;
     overflow-wrap: anywhere;
 }
 
 .chart {
     width: 100%;
-    margin: 0.8rem 0;
+    margin: 0.7rem 0;
     background: #f8fbfd;
     border: 1px solid #e1ebf2;
     border-radius: 8px;
@@ -521,86 +737,184 @@ body {
     height: auto;
 }
 
-.table-scroll {
-    width: 100%;
-    overflow-x: auto;
+/* Right panel */
+.engine-box {
+    display: grid;
+    gap: 0.2rem;
+    margin-bottom: 0.9rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    line-height: 1.45;
 }
 
-.sim-table {
-    min-width: 560px;
-    margin-top: 0.4rem;
+.engine-box.success {
+    background: #e7f3ef;
+    border: 1px solid #a7cfc2;
+    color: #13645c;
 }
 
-.sim-table th {
-    background: #eef5fa;
-    color: #103658;
-    font-size: 0.84rem;
-    text-align: left;
-    padding: 0.5rem 0.6rem;
-    border-bottom: 1px solid #dbe6ee;
+.engine-box.warning {
+    background: #fff4e5;
+    border: 1px solid #f0c88a;
+    color: #8a5a00;
 }
 
-.sim-table td {
+.engine-box small {
+    color: #486275;
+    overflow-wrap: anywhere;
+}
+
+.result-summary {
+    display: grid;
+    gap: 0.6rem;
+}
+
+.summary-block {
+    background: #ffffff;
+    border: 1px solid #dde8ef;
+    border-radius: 6px;
+    padding: 0.6rem 0.7rem;
+    min-width: 0;
+}
+
+.summary-block > span {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: #486275;
+    font-size: 0.73rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.summary-block > strong {
+    display: block;
+    color: #0b2b45;
     font-size: 0.88rem;
+    overflow-wrap: anywhere;
 }
 
-.sim-table td:first-child {
-    width: 18%;
+.summary-block > em {
+    color: #8a97a3;
+    font-size: 0.83rem;
 }
 
-.sim-table td:last-child,
-.sim-table td:nth-child(2),
-.sim-table td:nth-child(3) {
+.summary-block > small {
+    display: block;
+    margin-top: 0.3rem;
+    color: #6c757d;
+    font-size: 0.74rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.result-list {
+    display: grid;
+    gap: 0.22rem;
+}
+
+.result-row {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.35rem;
+    align-items: baseline;
     font-family: "SF Mono", "Consolas", "Monaco", monospace;
+    font-size: 0.75rem;
+}
+
+.result-row > span:first-child {
+    color: #486275;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    font-weight: 700;
+}
+
+.result-row .spice-col {
+    color: #0b2b45;
+}
+
+.result-row .ref-col {
+    color: #6c757d;
+}
+
+.model-note {
+    margin: 0.8rem 0 0;
+    color: #6c757d;
+    font-size: 0.76rem;
+    line-height: 1.5;
+}
+
+.sim-error {
+    margin-top: 0.8rem;
+    word-break: break-word;
 }
 
 .provenance {
-    margin-top: 1rem;
+    margin-top: 0.9rem;
     border: 1px solid #e3e8ee;
     border-radius: 6px;
-    padding: 0.7rem 0.9rem;
+    padding: 0.65rem 0.75rem;
     background: #fcfdff;
 }
 
-.provenance summary {
+.provenance summary,
+details > summary {
     cursor: pointer;
     color: #0d6efd;
-    font-size: 0.9rem;
+    font-size: 0.86rem;
     font-weight: 600;
 }
 
 .provenance h4 {
-    margin: 0.9rem 0 0.3rem;
-    font-size: 0.86rem;
+    margin: 0.8rem 0 0.3rem;
+    font-size: 0.82rem;
     color: #495057;
 }
 
-.provenance pre {
+.provenance pre,
+details pre {
     max-height: 320px;
     overflow: auto;
     white-space: pre-wrap;
     word-break: break-word;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     background: #f4f7fb;
     border: 1px solid #e1e8ef;
     border-radius: 5px;
-    padding: 0.7rem;
+    padding: 0.6rem;
 }
 
-@media (max-width: 992px) {
-    .sim-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 1200px) {
+    .sim-workbench {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    }
+    .sim-panel-results {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 900px) {
+    .sim-workbench {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .sim-panel-results {
+        grid-column: auto;
     }
 }
 
 @media (max-width: 576px) {
-    .sim-grid {
-        grid-template-columns: minmax(0, 1fr);
-    }
     .simulation-card {
         padding: 1rem;
     }
+    .sim-grid,
     .sim-stats {
         grid-template-columns: minmax(0, 1fr);
+    }
+    .ce-circuit-img {
+        max-width: 100%;
+    }
+    .result-row {
+        grid-template-columns: 38px minmax(0, 1fr) minmax(0, 1fr);
+        font-size: 0.7rem;
     }
 }

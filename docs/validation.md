@@ -76,7 +76,7 @@ visible result text copied from the page or a screenshot.
 | Engine selection | `NGSPICE_BIN` environment variable (not on the base `PATH`) |
 | BJT model | `QNPN_GENERIC` — `IS=1e-14 BF=100 VAF=100 RB=10 RC=1 CJE=25p CJC=10p TF=0.4n TR=50n` |
 | Test command | `.\.venv\Scripts\python.exe -m pytest -q` |
-| Test result | **51 passed** |
+| Test result | **52 passed** |
 
 The model is a documented generic small-signal NPN card, not an
 instructor-verified part model. Replace it in `spice_engine.py` if the section
@@ -135,7 +135,8 @@ Transient (`.tran`, 2008 points, 5 ms):
 | B5 · Transient | Real ngspice-47 + `/simulate` HTTP | 10 mV peak, 1 kHz, 5 ms | Vin/Vout vs time, units, phase inversion | Vin pp 20.00 mV, Vout pp 35.0 mV, gain 1.75×, inverted | Waveform SVG + stats; correlation ≈ -0.99999 | **PASS** |
 | B6 · Change Source | Real ngspice-47 + `/simulate` HTTP | 10 mV/1 kHz → 20 mV/2 kHz | Waveform changes, not a hard-coded trace | Vin pp **20.00 → 40.00 mV**; Vout pp **34.99 → 69.98 mV** | Fresh netlist + fresh `.tran` parse per request | **PASS** |
 | B7 · Invalid / Fail | Flask test client | RE = 0; ngspice missing | Field error or explicit engine error, no fake success | RE=0 → field error before any solver call; missing engine → `Simulation unavailable` + netlist/log | `tests/test_simulate_app.py` | **PASS** |
-| B8 · UI | OpenCode browser tool | Desktop/mobile CSS | Readable values, units, status; no critical content cut | Before/after browser snapshots (desktop 1280×, mobile 390×); values visible, units shown, SVG charts rendered | Browser session captured at `http://127.0.0.1:5000`; snapshot includes all three analysis modes with correct units and provenance | **PASS** |
+| B8 · UI | OpenCode browser tool | Desktop/mobile CSS | Readable values, units, status; no critical content cut | Three-column workbench at desktop width; one column on narrow screens; values, units and SVG charts visible | Browser session at `http://127.0.0.1:5000`; `docs/captures/lab04-workbench-layout.jpeg` and `docs/captures/lab04-ac-real-run.jpeg` | **PASS** |
+| B9 · Screen target | OpenCode browser tool + Flask test client | Handout wireframe | Circuit & Parameters left, Simulation & Plots centre, Engineering Results right; no fake traces | Workbench grid measured as 343 px / 441 px / 294 px at desktop width; empty-state says plots appear only after a real run; AC run produced 2 parsed SVG plots | `test_index_has_three_column_workbench_and_no_placeholder_plots`; browser DOM inspection and screenshots | **PASS** |
 
 ## Browser acceptance (Playwright MCP) — to be completed by the student
 
@@ -163,6 +164,11 @@ The OpenCode browser sessions executed above (against the live Flask app with re
   wraps at ±180°.
 - The transient phase claim comes from a correlation check on the late-time
   waveform, not from visual inspection alone.
-- B8 still requires a real desktop/mobile browser pass; the CSS is responsive
-  but this record does not claim a browser test that did not run.
+- The handout wireframe contains illustrative Bode and waveform curves. This
+  implementation intentionally keeps that area as an explicit empty state until
+  a real ngspice run succeeds; the screenshots therefore show no placeholder
+  traces.
+- Browser evidence is stored in `docs/captures/`:
+  `lab04-workbench-layout.jpeg` (initial three-column state) and
+  `lab04-ac-real-run.jpeg` (parsed AC plots and results).
 

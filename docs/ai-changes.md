@@ -7,6 +7,9 @@
 |---|---|
 | `spice_engine.py` | Full ngspice adapter: `validate_sim` → `build_netlist` → `run_simulation` → `parse_op/ac/tran`. Handles `SpiceError`/`SpiceUnavailable`, isolated temp workdir, timeout, no `shell=True`. |
 | `charts.py` | Dependency-free inline SVG chart builder: `svg_line_chart`, `downsample`, Bode gain/phase and transient waveform plots. |
+| `static/circuit-ce.svg` | Fixed CE voltage-divider reference schematic with VCC, R1/R2, RC/RE, Q1, Cin/Cout, RL and common ground, drawn to match the handout target. |
+| `docs/captures/lab04-workbench-layout.jpeg` | Browser screenshot of the initial three-column workbench. |
+| `docs/captures/lab04-ac-real-run.jpeg` | Browser screenshot after a real ngspice AC run with parsed plots. |
 | `tests/test_spice_engine.py` | 51 tests covering netlist generation, synthetic `wrdata` parsers, validation errors, subprocess error paths (stubbed, no live ngspice). |
 | `tests/test_simulate_app.py` | /simulate HTTP tests: success, invalid input, missing engine, AC/Transient chart rendering. |
 | `README.md` | Full setup/run/ngspice config/provenance documentation (replaces stale merge-conflict markers). |
@@ -18,9 +21,9 @@
 | File | Changes |
 |---|---|
 | `app.py` | Added `SIM_FIELDS`, `_sim_values_from`, `POST /simulate`, `_build_sim_display` for DC/AC/Transient, `_cutoffs`, `_is_inverted`, `_unwrap_phase`. |
-| `templates/index.html` | Added Lab 04 simulation section: analysis select, parameter inputs, per-field errors, engine badge, DC comparison table, AC SVG plots, transient waveform SVG, netlist/log provenance. |
-| `static/style.css` | Added simulation/chart styles: `.simulation-card`, `.sim-grid` (3→2→1 columns), `.chart` SVG container, responsive tables, provenance panel. |
-| `static/app.js` | Progressive enhancement: toggles analysis-specific fields, keeps run-button label in sync. |
+| `templates/index.html` | Added Lab 04 three-column workbench: left circuit + radio analysis + parameter inputs, centre real plots/diagnostics, right engineering results + engine/provenance. Lab 03 sections remain intact. |
+| `static/style.css` | Added `.sim-workbench` grid (3→2→1 columns), panel styles, analysis segmented control, empty plot states, result summary cards and responsive chart/provenance styling. |
+| `static/app.js` | Progressive enhancement: toggles analysis-specific fields and the centre status strip from the radio group, keeps run-button label in sync. |
 | `.gitignore` | Added `runs/`, `*.raw`, `*.log` for simulation artifacts. |
 
 ### Key design decisions
@@ -34,7 +37,7 @@
 ## What the student verified
 
 ### Automated tests
-- `pytest -q` → **51 passed** (Lab 03 math, Flask routes, Lab 04 netlist/parser/validation/error paths, /simulate HTTP tests)
+- `pytest -q` → **52 passed** (Lab 03 math, Flask routes, Lab 04 netlist/parser/validation/error paths, /simulate HTTP tests, three-column workbench/no-placeholder check)
 
 ### Real ngspice-47 verification
 - **ngspice-47** (portable 64-bit Windows build, `Spice64\bin\ngspice_con.exe`) was installed and configured via `NGSPICE_BIN`
@@ -50,6 +53,8 @@
 - Verified missing-engine path shows explicit error with netlist/log, no fake success
 - Verified Bode plots (2 charts) and transient waveform (1 chart) render with proper SVG
 - Verified responsive layout at desktop (1280 px) and mobile (390 px) viewport widths
+- Verified the handout-style three-column workbench: circuit/parameters left, plots centre, engineering results right
+- Verified the initial centre panel contains an explicit empty state, not illustrative traces; AC run then produced 2 parsed SVG plots
 - Verified progressive enhancement: form works without JavaScript
 
 ### Lab 03 regression

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 330" role="img" aria-labelledby="ce-title ce-desc">
+  <title id="ce-title">Common-emitter amplifier with voltage-divider bias</title>
+  <desc id="ce-desc">VCC feeds R1 and RC. R1 and R2 form the base divider; RC is the collector load and RE is the unbypassed emitter resistor. Q1 is an NPN transistor with its emitter arrow pointing outward. A sine source couples through Cin to the base. The collector drives Cout and load resistor RL. All nodes share one ground reference.</desc>
+  <defs>
+    <marker id="ce-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#3b6377"/>
+    </marker>
+  </defs>
+  <style>
+    .w{fill:none;stroke:#3b6377;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+    .dev{fill:#ffffff;stroke:#3b6377;stroke-width:2.4}
+    .dot{fill:#07766e}
+    .lbl{font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:15px;font-weight:700;fill:#254d67}
+    .small{font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:13px;font-weight:700;fill:#254d67}
+    .note{font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:12px;fill:#486275}
+    .badge{font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:11.5px;font-weight:700;fill:#07766e;letter-spacing:1px}
+  </style>
+
+  <!-- reference badge -->
+  <rect x="14" y="8" width="196" height="23" rx="11" fill="#e8f6f2" stroke="#b4d7cb"/>
+  <text class="badge" x="112" y="24" text-anchor="middle">CE AMPLIFIER · VOLTAGE DIVIDER</text>
+
+  <!-- supply rail -->
+  <path class="w" d="M151 40 H310 M151 40 V76 M310 40 V76"/>
+  <path d="M140 40 H160" stroke="#0d6efd" stroke-width="3.2" stroke-linecap="round"/>
+  <text class="lbl" x="230" y="33" text-anchor="middle" fill="#0d6efd">+V<tspan font-size="11" dy="2">CC</tspan></text>
+
+  <!-- base divider: R1 above, R2 below -->
+  <path class="w" d="M151 120 V192 M151 219 V248"/>
+  <rect class="dev" x="144" y="76" width="14" height="44" rx="2"/>
+  <rect class="dev" x="144" y="248" width="14" height="37" rx="2"/>
+  <text class="small" x="132" y="104" text-anchor="end">R1</text>
+  <text class="small" x="132" y="274" text-anchor="end">R2</text>
+
+  <!-- collector branch: RC -->
+  <path class="w" d="M310 120 V157"/>
+  <rect class="dev" x="303" y="76" width="14" height="44" rx="2"/>
+  <text class="small" x="326" y="104">RC</text>
+
+  <!-- transistor Q1 NPN (base, collector, emitter with outward arrow) -->
+  <circle cx="280" cy="195" r="41" fill="#f6fafc" stroke="#9db5c6" stroke-width="1.8"/>
+  <path class="w" d="M151 192 H260 M260 176 V214 M260 184 L299 157 H310 M260 207 L300 232 H310 V248"/>
+  <path d="M284 219 L300 232 M292 229 L296 220 L302 234 Z" fill="#3b6377" stroke-width="1.4"/>
+  <text class="small" x="248" y="258">Q1</text>
+  <text class="note" x="248" y="272">NPN</text>
+
+  <!-- emitter resistor RE -->
+  <rect class="dev" x="303" y="248" width="14" height="23" rx="2"/>
+  <path class="w" d="M310 271 V290"/>
+  <text class="small" x="326" y="265">RE</text>
+
+  <!-- input: sine source + coupling capacitor Cin -->
+  <path class="w" d="M43 192 H82 M93 192 H151 M43 192 V219 M43 249 V290"/>
+  <path class="w" d="M82 177 V207 M93 177 V207"/>
+  <circle cx="43" cy="234" r="15" fill="#ffffff" stroke="#3b6377" stroke-width="2.4"/>
+  <path d="M33 235 Q38 228 43 235 T53 235" fill="none" stroke="#3b6377" stroke-width="1.7"/>
+  <text class="small" x="88" y="170" text-anchor="middle">Cin</text>
+  <text class="note" x="12" y="258">Vin</text>
+
+  <!-- output: coupling capacitor Cout + load RL -->
+  <path class="w" d="M310 157 H360 M371 157 H414 V202"/>
+  <path class="w" d="M360 142 V172 M371 142 V172"/>
+  <rect class="dev" x="407" y="202" width="14" height="51" rx="2"/>
+  <path class="w" d="M414 253 V290"/>
+  <text class="small" x="366" y="136" text-anchor="middle">Cout</text>
+  <text class="small" x="429" y="232">RL</text>
+  <text class="note" x="424" y="150">Vout</text>
+
+  <!-- shared ground rail -->
+  <path class="w" d="M43 290 H414 M151 290 V297 M310 290 V297"/>
+  <path d="M226 290 V297 M212 297 H240 M217 302 H235" stroke="#3b6377" stroke-width="2.2" stroke-linecap="round"/>
+  <text class="note" x="226" y="318" text-anchor="middle">GND (common reference)</text>
+
+  <!-- node voltages -->
+  <circle class="dot" cx="151" cy="192" r="3.6"/>
+  <circle class="dot" cx="310" cy="157" r="3.6"/>
+  <text class="small" x="108" y="184" fill="#07766e">VB</text>
+  <text class="small" x="282" y="150" fill="#07766e">VC</text>
+  <text class="small" x="272" y="246" fill="#07766e">VE</text>
+</svg>

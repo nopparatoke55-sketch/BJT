@@ -54,6 +54,15 @@ def test_index_has_simulation_section(client):
     assert 'action="/simulate"' in body
 
 
+def test_index_has_three_column_workbench_and_no_placeholder_plots(client):
+    body = client.get("/").data.decode()
+    assert "sim-workbench" in body
+    assert "Circuit &amp; Parameters" in body
+    assert "Simulation &amp; Plots" in body
+    assert "Engineering Results" in body
+    assert "plot-svg" not in body
+
+
 def test_simulate_dc_success_shows_spice_and_reference(client, monkeypatch):
     fake = _run(
         "dc",
